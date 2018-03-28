@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TADS Store Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <h1>Cadastro de Produto</h1>
+    <div>
+      <form action="xpto" th:action="@{/gerenciamento/produto/salvar}" 
+            th:object="${produto}" method="post">
+        <div>
+          <label for="txtnome">Nome:</label>
+          <input type="text" name="nome" id="txtnome" th:field="*{nome}" />
+        </div>
+        <div>
+          <label for="txtdescricao">Descrição</label>
+          <textarea name="descricao" id="txtdescricao" rows="3"
+                    th:field="*{descricao}"></textarea>
+        </div>
+        <div>
+          <label for="txtprecocompra">Preço compra</label>
+          <input type="number" name="precoCompra" id="txtprecocompra"
+                 th:field="*{precoCompra}" />
+        </div>
+        <div>
+          <label for="txtprecovenda">Preço venda</label>
+          <input type="number" name="precoVenda" id="txtprecovenda"
+                 th:field="*{precoVenda}" />
+        </div>
+        <div>
+          <label for="txtquantidade">Quantidade inicial</label>
+          <input type="number" name="quantidade" id="txtquantidade"
+                 th:field="*{quantidade}"/>
+        </div>
+        <button>Enviar</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -13,6 +13,7 @@ import  br.senac.tads4.dsw.tadsstorespring.entidade.Produto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -29,10 +30,17 @@ public class GerenciadorProdutoController {
   }
   
   @PostMapping("/salvar")
-  public ModelAndView salvar(@ModelAttribute Produto produto) {
+  public ModelAndView salvar(@ModelAttribute("produto") Produto produto, 
+          RedirectAttributes redirectAttributes) {
     // @ModelAttribute - indica para o Spring que as informacoes preenchidas
     // no form HTML serao populadas no objeto produto
-    return new ModelAndView("/produto/resultado")
-            .addObject("produtoCadastrado", produto);
+    
+    redirectAttributes.addFlashAttribute("produtoCadastrado", produto);
+    return new ModelAndView("redirect:/gerenciamento/produto/resultado");
+  }
+  
+  @GetMapping("/resultado")
+  public ModelAndView mostrarResultado() {
+    return new ModelAndView("/produto/resultado");
   }
 }

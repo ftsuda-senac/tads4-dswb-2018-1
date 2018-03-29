@@ -80,6 +80,10 @@
             <h2>Carrinho de compras</h2>
           </div>
         </div>
+        
+        <div th:if="${produto != null}" class="alert alert-success" role="alert">
+          Produto <span th:text="${produto.id}"></span> adicionado com sucesso.
+        </div>
 
         <div class="row">
           <div class="col-12">

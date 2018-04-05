@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -32,7 +33,8 @@ public class UploadController {
 
   @PostMapping
   public ModelAndView upload(
-          @RequestParam("arquivo") MultipartFile arquivo) {
+          @RequestParam("arquivo") MultipartFile arquivo, 
+          RedirectAttributes redirectAttributes) {
 
     if (arquivo.isEmpty()) {
       // ERRO
@@ -46,8 +48,10 @@ public class UploadController {
     } catch (IOException e) {
       // ERRO
     }
-    return new ModelAndView("redirect:/estaticos/uploads/"
-            + arquivo.getOriginalFilename());
+    redirectAttributes.addFlashAttribute("msg", "Arquivo " 
+            + arquivo.getOriginalFilename() 
+            + " carregado com sucesso");
+    return new ModelAndView("redirect:/upload");
   }
 
 }

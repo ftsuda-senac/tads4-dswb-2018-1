@@ -7,6 +7,9 @@
   </head>
   <body>
     <h1>Upload de arquivo</h1>
+    <div th:if="${msg != null}" style="background-color: aquamarine">
+      <p th:text="${msg}"></p>
+    </div>
     <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
       <div>
         <label>Selecione um arquivo</label>

@@ -15,21 +15,29 @@
         <div>
           <label for="txtnome">Nome:</label>
           <input type="text" name="nome" id="txtnome" th:field="*{nome}" />
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" 
+               th:errors="*{nome}"></div>
         </div>
         <div>
           <label for="txtdescricao">Descrição</label>
           <textarea name="descricao" id="txtdescricao" rows="3"
                     th:field="*{descricao}"></textarea>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" 
+               th:errors="*{descricao}"></div>
         </div>
         <div>
           <label for="txtprecocompra">Preço compra</label>
           <input type="number" name="precoCompra" id="txtprecocompra"
                  th:field="*{precoCompra}" />
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('precoCompra')}" 
+               th:errors="*{precoCompra}"></div>
         </div>
         <div>
           <label for="txtprecovenda">Preço venda</label>
           <input type="number" name="precoVenda" id="txtprecovenda"
                  th:field="*{precoVenda}" />
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('precoVenda')}" 
+               th:errors="*{precoVenda}"></div>
         </div>
         <div>
           <label for="txtquantidade">Quantidade inicial</label>

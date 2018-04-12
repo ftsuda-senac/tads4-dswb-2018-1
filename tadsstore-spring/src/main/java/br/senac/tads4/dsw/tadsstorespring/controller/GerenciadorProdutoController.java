@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import  br.senac.tads4.dsw.tadsstorespring.entidade.Produto;
+import javax.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,10 +32,16 @@ public class GerenciadorProdutoController {
   }
   
   @PostMapping("/salvar")
-  public ModelAndView salvar(@ModelAttribute("produto") Produto produto, 
+  public ModelAndView salvar(@ModelAttribute("produto") @Valid Produto produto,
+          BindingResult bindingResult,
           RedirectAttributes redirectAttributes) {
     // @ModelAttribute - indica para o Spring que as informacoes preenchidas
     // no form HTML serao populadas no objeto produto
+    // @Valid - indica que o objeto será validado de acordo com as configurações
+    // feitas na classe Produto
+    if (bindingResult.hasErrors()) {
+      return new ModelAndView("/produto/formulario");
+    }
     
     redirectAttributes.addFlashAttribute("produtoCadastrado", produto);
     return new ModelAndView("redirect:/gerenciamento/produto/resultado");

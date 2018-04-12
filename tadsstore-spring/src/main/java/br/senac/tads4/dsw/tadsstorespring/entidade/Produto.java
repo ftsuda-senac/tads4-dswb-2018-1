@@ -28,17 +28,23 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 import java.util.Objects;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 
 public class Produto implements Serializable {
 
   private Long id;
 
+  @Size(min = 1, max = 20, message = "Preenche direito")
   private String nome;
 
+  @Size(min = 1, max = 100)
   private String descricao;
 
+  @Digits(integer = 6, fraction = 2)
   private BigDecimal precoCompra;
-  
+ 
+  @Digits(integer = 6, fraction = 2)
   private BigDecimal precoVenda;
   
   private int quantidade;
@@ -92,7 +98,7 @@ public class Produto implements Serializable {
   }
 
   public void setNome(String nome) {
-    this.nome = nome;
+    this.nome = nome.trim();
   }
 
   public String getDescricao() {

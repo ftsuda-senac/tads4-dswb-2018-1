@@ -8,43 +8,43 @@
     <script th:src="@{/js/funcoes.js}"></script>
   </head>
   <body>
-    <h1>Cadastro de Produto</h1>
+    <h1 th:text="#{produto.titulo}">Cadastro de Produto</h1>
     <div>
       <form action="xpto" th:action="@{/gerenciamento/produto/salvar}" 
             th:object="${produto}" method="post">
         <div>
-          <label for="txtnome">Nome:</label>
+          <label for="txtnome" th:text="#{produto.nome}">Nome:</label>
           <input type="text" name="nome" id="txtnome" th:field="*{nome}" />
           <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" 
                th:errors="*{nome}"></div>
         </div>
         <div>
-          <label for="txtdescricao">Descrição</label>
+          <label for="txtdescricao" th:text="#{produto.descricao}">Descrição</label>
           <textarea name="descricao" id="txtdescricao" rows="3"
                     th:field="*{descricao}"></textarea>
           <div class="invalid-feedback" th:if="${#fields.hasErrors('descricao')}" 
                th:errors="*{descricao}"></div>
         </div>
         <div>
-          <label for="txtprecocompra">Preço compra</label>
+          <label for="txtprecocompra" th:text="#{produto.precoCompra}">Preço compra</label>
           <input type="number" name="precoCompra" id="txtprecocompra"
                  th:field="*{precoCompra}" />
           <div class="invalid-feedback" th:if="${#fields.hasErrors('precoCompra')}" 
                th:errors="*{precoCompra}"></div>
         </div>
         <div>
-          <label for="txtprecovenda">Preço venda</label>
+          <label for="txtprecovenda" th:text="#{produto.precoVenda}">Preço venda</label>
           <input type="number" name="precoVenda" id="txtprecovenda"
                  th:field="*{precoVenda}" />
           <div class="invalid-feedback" th:if="${#fields.hasErrors('precoVenda')}" 
                th:errors="*{precoVenda}"></div>
         </div>
         <div>
-          <label for="txtquantidade">Quantidade inicial</label>
+          <label for="txtquantidade" th:text="#{produto.quantidade}">Quantidade inicial</label>
           <input type="number" name="quantidade" id="txtquantidade"
                  th:field="*{quantidade}"/>
         </div>
-        <button>Enviar</button>
+        <button th:text="#{produto.enviar}">Enviar</button>
       </form>
     </div>
   </body>

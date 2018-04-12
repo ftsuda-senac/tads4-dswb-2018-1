@@ -35,7 +35,7 @@ public class Produto implements Serializable {
 
   private Long id;
 
-  @Size(min = 1, max = 20, message = "Preenche direito")
+  @Size(min = 1, max = 20, message = "Nome deve ser preenchido")
   private String nome;
 
   @Size(min = 1, max = 100)

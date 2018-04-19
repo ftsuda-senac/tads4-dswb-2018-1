@@ -26,14 +26,29 @@ package br.senac.tads4.dsw.tadsstorespring.entidade;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name = "TB_CATEGORIA")
 public class Categoria implements Serializable {
 
+  @Id
+  @Column(name = "ID_CATEGORIA")
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
+  @Column(name = "NM_CATEGORIA", length = 100,
+          nullable = false, unique = true)
   private String nome;
 
+  @ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
   private Set<Produto> produtos;
 
   public Categoria() {
@@ -42,6 +57,10 @@ public class Categoria implements Serializable {
 
   public Categoria(Integer id, String nome) {
     this.id = id;
+    this.nome = nome;
+  }
+
+  public Categoria(String nome) {
     this.nome = nome;
   }
 
@@ -74,25 +93,4 @@ public class Categoria implements Serializable {
     return "Categoria{" + "id=" + id + ", nome=" + nome + '}';
   }
 
-  @Override
-  public int hashCode() {
-    int hash = 3;
-    hash = 47 * hash + Objects.hashCode(this.id);
-    return hash;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final Categoria other = (Categoria) obj;
-    if (!Objects.equals(this.id, other.id)) {
-      return false;
-    }
-    return true;
-  }
 }

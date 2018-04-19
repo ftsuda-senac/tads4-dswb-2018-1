@@ -24,15 +24,33 @@
 package br.senac.tads4.dsw.tadsstorespring.entidade;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "TB_IMAGEM")
 public class ImagemProduto implements Serializable {
 
+  @Id
+  @Column(name = "ID_IMAGEM")
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @Column(name = "NM_IMAGEM", nullable = false)
   private String nomeArquivo;
 
+  @Column(name = "DS_IMAGEM")
   private String legenda;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ID_PRODUTO")
   private Produto produto;
 
   public ImagemProduto() {
@@ -41,6 +59,11 @@ public class ImagemProduto implements Serializable {
 
   public ImagemProduto(Long id, String nomeArquivo, String legenda) {
     this.id = id;
+    this.nomeArquivo = nomeArquivo;
+    this.legenda = legenda;
+  }
+
+  public ImagemProduto(String nomeArquivo, String legenda) {
     this.nomeArquivo = nomeArquivo;
     this.legenda = legenda;
   }

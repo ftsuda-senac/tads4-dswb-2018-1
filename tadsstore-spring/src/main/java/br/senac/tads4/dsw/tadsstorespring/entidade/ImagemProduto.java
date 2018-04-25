@@ -40,7 +40,7 @@ public class ImagemProduto implements Serializable {
 
   @Id
   @Column(name = "ID_IMAGEM")
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "NM_IMAGEM", nullable = false)

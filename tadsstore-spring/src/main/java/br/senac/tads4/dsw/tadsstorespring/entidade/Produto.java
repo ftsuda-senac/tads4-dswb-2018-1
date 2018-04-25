@@ -52,7 +52,7 @@ public class Produto implements Serializable {
 
   @Id
   @Column(name = "ID_PRODUTO")
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Size(min = 1, max = 100, message = "{produto.nome.erro}")
@@ -81,9 +81,9 @@ public class Produto implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date dtCadastro;
 
-  @ManyToMany(fetch = FetchType.LAZY, 
-          cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-  @JoinTable(name = "TB_PRODUTO_CATEGORIA", 
+  @ManyToMany(fetch = FetchType.LAZY,
+          cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinTable(name = "TB_PRODUTO_CATEGORIA",
           joinColumns = {
             @JoinColumn(name = "ID_PRODUTO")
           },
@@ -93,7 +93,7 @@ public class Produto implements Serializable {
   private Set<Categoria> categorias;
 
   @OneToMany(mappedBy = "produto", fetch = FetchType.LAZY,
-          cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+          cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private Set<ImagemProduto> imagens;
 
   @Transient

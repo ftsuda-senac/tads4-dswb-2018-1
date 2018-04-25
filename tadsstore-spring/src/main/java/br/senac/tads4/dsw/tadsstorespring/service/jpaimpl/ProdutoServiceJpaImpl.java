@@ -11,6 +11,7 @@ import br.senac.tads4.dsw.tadsstorespring.service.ProdutoService;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,9 @@ public class ProdutoServiceJpaImpl implements ProdutoService {
 
   @Override
   public List<Produto> listar(int offset, int quantidade) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Query query = entityManager.createQuery("SELECT p FROM Produto p");
+    List<Produto> resultados = query.getResultList();
+    return resultados;
   }
 
   @Override

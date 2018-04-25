@@ -55,34 +55,39 @@ public class GerenciadorProdutoController {
     }
     produto.setDtCadastro(new Date());
     
+    Set<Produto> listaProdutos =  new LinkedHashSet<>();
+    listaProdutos.add(produto);
+    
     // Setando categorias e imagens hardcoded
-    Set<Categoria> categorias = new LinkedHashSet<>();
+    Set<Categoria> listaCategorias = new LinkedHashSet<>();
     Categoria c1 = new Categoria("Chocolate");
-    c1.setProdutos(new LinkedHashSet<>(Arrays.asList(produto)));
-    categorias.add(c1);
+    c1.setProdutos(listaProdutos);
+    listaCategorias.add(c1);
     
     Categoria c2 = new Categoria("Light");
-    c2.setProdutos(new LinkedHashSet<>(Arrays.asList(produto)));
-    categorias.add(c2);
+    c2.setProdutos(listaProdutos);
+    listaCategorias.add(c2);
     
     Categoria c3 = new Categoria("Crocante");
-    c3.setProdutos(new LinkedHashSet<>(Arrays.asList(produto)));
-    categorias.add(c3);
-    produto.setCategorias(categorias);
+    c3.setProdutos(listaProdutos);
+    listaCategorias.add(c3);
+
+    produto.setCategorias(listaCategorias);
     
-    Set<ImagemProduto> imagens = new LinkedHashSet<>();
+    Set<ImagemProduto> listaImagens = new LinkedHashSet<>();
     ImagemProduto img1 = new ImagemProduto("bolo01.jpg", "Descrição 1");
     img1.setProduto(produto);
-    imagens.add(img1);
+    listaImagens.add(img1);
     
     ImagemProduto img2 = new ImagemProduto("bolo02.jpg", "Descrição 2");
     img2.setProduto(produto);
-    imagens.add(img2);
+    listaImagens.add(img2);
     
     ImagemProduto img3 = new ImagemProduto("bolo03.jpg", "Descrição 3");
     img3.setProduto(produto);
-    imagens.add(img3);
-    produto.setImagens(imagens);
+    listaImagens.add(img3);
+
+    produto.setImagens(listaImagens);
     
     service.incluir(produto);
     redirectAttributes.addFlashAttribute("produtoCadastrado", produto);

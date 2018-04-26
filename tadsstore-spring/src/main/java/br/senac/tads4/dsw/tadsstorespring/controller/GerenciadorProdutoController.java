@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import  br.senac.tads4.dsw.tadsstorespring.entidade.Produto;
+import br.senac.tads4.dsw.tadsstorespring.service.CategoriaService;
 import br.senac.tads4.dsw.tadsstorespring.service.ProdutoService;
 import java.util.Arrays;
 import java.util.Date;
@@ -36,10 +37,14 @@ public class GerenciadorProdutoController {
   @Autowired
   private ProdutoService service;
   
+  @Autowired
+  private CategoriaService categoriaService;
+  
   @GetMapping("/formulario")
   public ModelAndView mostrarFormulario() {
     return new ModelAndView("/produto/formulario")
-            .addObject("produto", new Produto());
+            .addObject("produto", new Produto())
+            .addObject("categorias", categoriaService.listar());
   }
   
   @PostMapping("/salvar")
@@ -54,24 +59,18 @@ public class GerenciadorProdutoController {
       return new ModelAndView("/produto/formulario");
     }
     produto.setDtCadastro(new Date());
-    
     Set<Produto> listaProdutos =  new LinkedHashSet<>();
     listaProdutos.add(produto);
     
-    // Setando categorias e imagens hardcoded
     Set<Categoria> listaCategorias = new LinkedHashSet<>();
-    Categoria c1 = new Categoria("Chocolate");
-    c1.setProdutos(listaProdutos);
-    listaCategorias.add(c1);
     
-    Categoria c2 = new Categoria("Light");
-    c2.setProdutos(listaProdutos);
-    listaCategorias.add(c2);
-    
-    Categoria c3 = new Categoria("Crocante");
-    c3.setProdutos(listaProdutos);
-    listaCategorias.add(c3);
-
+    if (produto.getIdsCategorias() != null && !produto.getIdsCategorias().isEmpty()) {
+      for (Integer id : produto.getIdsCategorias()) {
+        Categoria c = categoriaService.obter(id);
+        c.setProdutos(listaProdutos);
+        listaCategorias.add(c);
+      }
+    }
     produto.setCategorias(listaCategorias);
     
     Set<ImagemProduto> listaImagens = new LinkedHashSet<>();

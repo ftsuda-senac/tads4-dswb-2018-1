@@ -44,6 +44,15 @@
           <input type="number" name="quantidade" id="txtquantidade"
                  th:field="*{quantidade}"/>
         </div>
+        <div>
+          <label>Categorias</label>
+          <div>
+          <span th:each="c : ${categorias}">
+            <input type="checkbox" th:field="*{idsCategorias}" th:value="${c.id}" />
+            <label th:text="${c.nome}"></label>
+          </span>
+          </div>
+        </div>
         <button th:text="#{produto.enviar}">Enviar</button>
       </form>
     </div>

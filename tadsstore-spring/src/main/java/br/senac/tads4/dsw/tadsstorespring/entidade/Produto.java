@@ -81,8 +81,7 @@ public class Produto implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date dtCadastro;
 
-  @ManyToMany(fetch = FetchType.LAZY,
-          cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "TB_PRODUTO_CATEGORIA",
           joinColumns = {
             @JoinColumn(name = "ID_PRODUTO")

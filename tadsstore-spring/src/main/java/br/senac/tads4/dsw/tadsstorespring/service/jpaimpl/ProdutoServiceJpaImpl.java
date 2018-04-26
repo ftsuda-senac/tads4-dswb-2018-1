@@ -21,26 +21,43 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ProdutoServiceJpaImpl implements ProdutoService {
-  
+
   @PersistenceContext
   private EntityManager entityManager;
 
   @Override
   public List<Produto> listar(int offset, int quantidade) {
-    Query query = entityManager.createQuery("SELECT p FROM Produto p");
+    Query query = entityManager.createQuery(
+            "SELECT DISTINCT p FROM Produto p "
+            + "LEFT JOIN FETCH p.categorias "
+            + "LEFT JOIN FETCH p.imagens");
     List<Produto> resultados = query.getResultList();
     return resultados;
   }
 
   @Override
   public List<Produto> listarPorCategoria(Categoria categoria, int offset, int quantidade) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Query query = entityManager.createQuery(
+            "SELECT DISTINCT p FROM Produto p "
+            + "LEFT JOIN FETCH p.categorias "
+            + "LEFT JOIN FETCH p.imagens "
+            + "INNER JOIN p.categorias c "
+            + "WHERE c.nome LIKE :nmCat");
+    query.setParameter("nmCat", categoria.getNome());
+    query.setFirstResult(offset);
+    query.setMaxResults(quantidade);
+    
+    List<Produto> resultados = query.getResultList();
+    return resultados;
   }
 
   @Override
   public Produto obter(long idProduto) {
     Query query = entityManager.createQuery(
-            "SELECT p FROM Produto p WHERE p.id = :idProd");
+            "SELECT DISTINCT p FROM Produto p "
+            + "LEFT JOIN FETCH p.categorias "
+            + "LEFT JOIN FETCH p.imagens "
+            + "WHERE p.id = :idProd");
     query.setParameter("idProd", idProduto);
     Produto resultado = (Produto) query.getSingleResult();
     return resultado;
@@ -68,5 +85,5 @@ public class ProdutoServiceJpaImpl implements ProdutoService {
   public void remover(long idProduto) {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
-  
+
 }

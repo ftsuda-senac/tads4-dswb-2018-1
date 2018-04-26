@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,6 +46,29 @@ public class GerenciadorProdutoController {
     return new ModelAndView("/produto/formulario")
             .addObject("produto", new Produto())
             .addObject("categorias", categoriaService.listar());
+  }
+  
+  @GetMapping("/formulario/{id}")
+  public ModelAndView mostrarFormularioAlteracao(
+          @PathVariable("id") Long id) {
+    Produto prodAlteracao = service.obter(id);
+    Set<Integer> idsCategorias = new LinkedHashSet<>();
+    if (prodAlteracao.getCategorias() != null && !prodAlteracao.getCategorias().isEmpty()) {
+      for (Categoria c : prodAlteracao.getCategorias()) {
+        idsCategorias.add(c.getId());
+      }
+      prodAlteracao.setIdsCategorias(idsCategorias);
+    }
+    return new ModelAndView("/produto/formulario")
+            .addObject("produto", prodAlteracao)
+            .addObject("categorias", categoriaService.listar());
+  }
+  
+  @GetMapping("/excluir/{id}")
+  public ModelAndView apagarProduto(
+          @PathVariable("id") Long id) {
+    service.remover(id);
+    return new ModelAndView("redirect:/gerenciamento/produto/formulario");
   }
   
   @PostMapping("/salvar")
@@ -88,7 +112,12 @@ public class GerenciadorProdutoController {
 
     produto.setImagens(listaImagens);
     
-    service.incluir(produto);
+    if (produto.getId() == null) {
+      service.incluir(produto);
+    } else {
+      service.alterar(produto);
+    }
+    
     redirectAttributes.addFlashAttribute("produtoCadastrado", produto);
     return new ModelAndView("redirect:/gerenciamento/produto/resultado");
   }

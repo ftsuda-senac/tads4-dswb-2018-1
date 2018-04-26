@@ -12,6 +12,7 @@
     <div>
       <form action="xpto" th:action="@{/gerenciamento/produto/salvar}" 
             th:object="${produto}" method="post">
+        <input type="hidden" th:if="${produto.id != null}" th:field="*{id}" />
         <div>
           <label for="txtnome" th:text="#{produto.nome}">Nome:</label>
           <input type="text" name="nome" id="txtnome" th:field="*{nome}" />

@@ -19,7 +19,7 @@
 
         <div class="row">
           <div class="col-12 col-sm-3">
-            <img src="bolo1.jpg" th:src="@{/img/bolo01.jpg}" class="img-fluid" />
+            <img src="bolo1.jpg" th:src="@{@{/img/__${produto.imagens[0].nomeArquivo}__}}" class="img-fluid" />
           </div>
           <div class="col-12 col-sm-9">
             <p th:text="${produto.descricao}">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
@@ -27,6 +27,12 @@
               euismod. Donec sed odio dui. </p>
             <h3 th:text="${produto.precoCompra}">99.00</h3>
             <h3 th:text="${produto.precoVenda}">99.00</h3>
+            <div th:if="${!#sets.isEmpty(produto.categorias)}">
+              <h2>Categorias</h2>
+              <ul>
+                <li th:each="c : ${produto.categorias}" th:text="${c.nome}"></li>
+              </ul>
+            </div>
           </div>
         </div>
 

@@ -39,7 +39,11 @@ public class ProdutoServiceJpaImpl implements ProdutoService {
 
   @Override
   public Produto obter(long idProduto) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Query query = entityManager.createQuery(
+            "SELECT p FROM Produto p WHERE p.id = :idProd");
+    query.setParameter("idProd", idProduto);
+    Produto resultado = (Produto) query.getSingleResult();
+    return resultado;
   }
 
   @Override

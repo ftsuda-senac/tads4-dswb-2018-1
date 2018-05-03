@@ -56,6 +56,7 @@
             </div>
           </li>
           <li>
+            <!-- VER https://stackoverflow.com/questions/48358478/how-can-i-display-the-current-logged-in-user-with-spring-boot-thymeleaf -->
             <div th:if="${#request.userPrincipal != null}">
               <p th:text="${#request.userPrincipal.principal.nomeCompleto}"></p>
             </div>

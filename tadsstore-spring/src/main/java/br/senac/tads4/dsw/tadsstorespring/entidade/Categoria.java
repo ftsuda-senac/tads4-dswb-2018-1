@@ -23,6 +23,7 @@
  */
 package br.senac.tads4.dsw.tadsstorespring.entidade;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
@@ -57,6 +58,7 @@ public class Categoria implements Serializable {
   private String nome;
 
   @ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
+  @JsonIgnore
   private Set<Produto> produtos;
 
   public Categoria() {

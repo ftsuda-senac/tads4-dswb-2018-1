@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable()
         .authorizeRequests()
-          .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
+          .antMatchers("/css/**", "/js/**", "/img/**", "/api/**").permitAll()
           .antMatchers("/xpto/**").hasRole("FODAO")
           .antMatchers("/**").authenticated()
         .and()

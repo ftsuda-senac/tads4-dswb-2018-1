@@ -23,6 +23,7 @@
  */
 package br.senac.tads4.dsw.tadsstorespring.entidade;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,6 +52,7 @@ public class ImagemProduto implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ID_PRODUTO")
+  @JsonIgnore
   private Produto produto;
 
   public ImagemProduto() {
